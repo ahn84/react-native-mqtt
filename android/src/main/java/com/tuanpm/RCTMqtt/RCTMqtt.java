@@ -232,7 +232,7 @@ public class RCTMqtt
             mqttOptions.setWill(topic, options.getString("willMsg").getBytes(), options.getInt("willQos"), options.getBoolean("willRetainFlag"));
         }
 
-        mqttOptions.setAutomaticReconnect( options.getBoolean("automaticReconnect"));
+        // mqttOptions.setAutomaticReconnect( options.getBoolean("automaticReconnect"));
 
         mqttOptions.setConnectionTimeout(10); // 10 seconds;
 
@@ -523,11 +523,14 @@ public class RCTMqtt
 
     private boolean needToReconnect(@NonNull final MqttException exception)
     {
-        return false;
-//        int reasonCode = exception.getReasonCode();
-//        return reasonCode == MqttException.REASON_CODE_SERVER_CONNECT_ERROR ||
-//                reasonCode == MqttException.REASON_CODE_CLIENT_EXCEPTION ||
-//                reasonCode == MqttException.REASON_CODE_CONNECTION_LOST;
+        // return false;
+        if (!defaultOptions.getBoolean("automaticReconnect")) {
+            return false;
+        }
+        int reasonCode = exception.getReasonCode();
+        return reasonCode == MqttException.REASON_CODE_SERVER_CONNECT_ERROR ||
+                reasonCode == MqttException.REASON_CODE_CLIENT_EXCEPTION ||
+                reasonCode == MqttException.REASON_CODE_CONNECTION_LOST;
     }
 
     private void reconnectIfNeeded(@NonNull final Throwable cause)
