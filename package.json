@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/headuck/react-native-mqtt.git"
+    "url": "git+https://github.com/ahn84/react-native-mqtt.git"
   },
   "keywords": [
     "mqtt",
@@ -23,7 +23,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/headuck/react-native-mqtt/issues"
+    "url": "https://github.com/ahn84/react-native-mqtt/issues"
   },
-  "homepage": "https://github.com/headuck/react-native-mqtt#readme"
+  "homepage": "https://github.com/ahn84/react-native-mqtt#readme"
 }
