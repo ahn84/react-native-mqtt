@@ -115,6 +115,15 @@ public class RCTMqttModule
         clients.remove(clientRef);
     }
 
+    @Override
+    public void onCatalystInstanceDestroy() {
+        for (HashMap.Entry<String, RCTMqtt> entry : clients.entrySet()) {
+            entry.getValue().disconnect();
+        }
+        clients.clear();
+        super.onCatalystInstanceDestroy();
+    }
+
     private String createClientRef()
     {
         return UUID.randomUUID().toString();
