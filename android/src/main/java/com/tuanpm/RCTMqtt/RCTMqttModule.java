@@ -105,11 +105,13 @@ public class RCTMqttModule
 
     @ReactMethod
     public void removeClient(@NonNull final String clientRef) {
-        if (!clients.containsKey(clientRef))
+        RCTMqtt client = clients.get(clientRef);
+        if (client == null)
         {
             return;
         }
         log(new StringBuilder("Remove client ").append(clientRef).toString());
+        client.disconnect();
         clients.remove(clientRef);
     }
 
