@@ -233,6 +233,7 @@ public class RCTMqtt
         }
 
         // mqttOptions.setAutomaticReconnect( options.getBoolean("automaticReconnect"));
+        mqttOptions.setCleanSession(options.getBoolean("clean"));
 
         mqttOptions.setConnectionTimeout(10); // 10 seconds;
 
