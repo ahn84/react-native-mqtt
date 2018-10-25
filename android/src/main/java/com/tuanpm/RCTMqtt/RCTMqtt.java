@@ -335,10 +335,10 @@ public class RCTMqtt
             public void onSuccess(IMqttToken asyncActionToken)
             {
                 log("Disconnect Completed");
-                WritableMap params = Arguments.createMap();
-                params.putString("event", "closed");
-                params.putString("message", "Disconnect");
-                sendEvent(reactContext, "mqtt_events", params);
+                // WritableMap params = Arguments.createMap();
+                // params.putString("event", "closed");
+                // params.putString("message", "Disconnect");
+                // sendEvent(reactContext, "mqtt_events", params);
             }
 
             public void onFailure(IMqttToken asyncActionToken,
@@ -459,12 +459,14 @@ public class RCTMqtt
         // An application may choose to implement reconnection
         // logic at this point. This sample simply exits.
         log(new StringBuilder("Connection lost! ").append(cause).toString());
+        
         WritableMap params = Arguments.createMap();
-        params.putString("event", "error");
+        params.putString("event", "closed");
         final String errorDescription = new StringBuilder("Connection lost! ")
                 .append(cause).toString();
         params.putString("message", errorDescription);
         sendEvent(reactContext, "mqtt_events", params);
+
         reconnectIfNeeded(cause);
     }
 
@@ -531,6 +533,8 @@ public class RCTMqtt
         int reasonCode = exception.getReasonCode();
         return reasonCode == MqttException.REASON_CODE_SERVER_CONNECT_ERROR ||
                 reasonCode == MqttException.REASON_CODE_CLIENT_EXCEPTION ||
+                reasonCode == MqttException.REASON_CODE_CLIENT_TIMEOUT ||
+                reasonCode == MqttException.REASON_CODE_WRITE_TIMEOUT ||
                 reasonCode == MqttException.REASON_CODE_CONNECTION_LOST;
     }
 
