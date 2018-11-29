@@ -335,10 +335,10 @@ public class RCTMqtt
             public void onSuccess(IMqttToken asyncActionToken)
             {
                 log("Disconnect Completed");
-                // WritableMap params = Arguments.createMap();
-                // params.putString("event", "closed");
-                // params.putString("message", "Disconnect");
-                // sendEvent(reactContext, "mqtt_events", params);
+                WritableMap params = Arguments.createMap();
+                params.putString("event", "disconnected");
+                params.putString("message", "Disconnect");
+                sendEvent(reactContext, "mqtt_events", params);
             }
 
             public void onFailure(IMqttToken asyncActionToken,
@@ -462,7 +462,7 @@ public class RCTMqtt
         
         WritableMap params = Arguments.createMap();
         params.putString("event", "closed");
-        final String errorDescription = new StringBuilder("Connection lost! ")
+        final String errorDescription = new StringBuilder("ConnectionLost|")
                 .append(cause).toString();
         params.putString("message", errorDescription);
         sendEvent(reactContext, "mqtt_events", params);
