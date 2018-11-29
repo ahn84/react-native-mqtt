@@ -15,13 +15,17 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
+def DEFAULT_COMPILE_SDK_VERSION     = 26
+def DEFAULT_BUILD_TOOLS_VERSION     = "26.0.2"
+def DEFAULT_TARGET_SDK_VERSION      = 26
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
     }
@@ -38,11 +42,11 @@ repositories {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
-    compile('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1') {
+    implementation 'com.facebook.react:react-native:+'
+    implementation('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1') {
         exclude module: 'support-v4'
     }
-    compile 'org.bouncycastle:bcprov-jdk15on:1.54'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.54'
 
 }
 
